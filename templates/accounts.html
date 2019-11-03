@@ -5,16 +5,15 @@
     {% if user.is_authenticated %}
         <p>ID: {{ user.id }} </p>
     {% endif %}
-    {#    {% if accounts %}#}
-    {#        <h3>Hay cuentas</h3>#}
-    {#        <ul>#}
-    {#            {% for account in accounts %}#}
-    {#                <li>{{ account }}</li>#}
-    {##}
-    {#            {% endfor %}#}
-    {#        </ul>#}
-    {#    {% else %}#}
-    {#        <h3>No hay cuentas registradas</h3>#}
-    {#        <a href="">Ingresa una nueva cuenta</a>#}
-    {#    {% endif %}#}
+        {% if accounts %}
+            <h3>Hay cuentas</h3>
+            <ul>
+                {% for account in accounts %}
+                    <li>{{ account }}</li>
+
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h3>No hay cuentas registradas</h3>
+        {% endif %}
 {% endblock %}

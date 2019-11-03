@@ -115,16 +115,14 @@ def accounts_manager(request):
     template = loader.get_template('accounts.html')
     if request.user.is_authenticated:
         # Do something for authenticated users
-        # current_user = request.user
-        # accounts = Account.objects.filter(user=current_user)
+        current_user = request.user
+        accounts = Account.objects.filter(user=current_user)
         # for account in accounts:
         #     print(account)
-        # context = {"accounts": accounts}
-        # else:
-        #     context = {}
-        #
-        # return HttpResponse(template.render(context, request))
-        return HttpResponse(template.render({}, request))
+        context = {"accounts": accounts}
+    else:
+        context = {}
+    return HttpResponse(template.render(context, request))
 
 
 @login_required
