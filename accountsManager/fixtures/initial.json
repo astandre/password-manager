@@ -1,0 +1,22 @@
+[
+  {
+    "model": "accountsManager.account",
+    "pk": 1,
+    "fields": {
+      "site": "www.facebook.com",
+      "user": "andre",
+      "email": "",
+      "password": "password"
+    }
+  },
+  {
+    "model": "accountsManager.account",
+    "pk": 2,
+    "fields": {
+      "site": "www.twitter.com",
+      "user": null,
+      "email": "test@example.com",
+      "password": "st6vycWxq4=8"
+    }
+  }
+]
