@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Añadir cuenta</h1>
+    {% if user.is_authenticated %}
+        <p>ID: {{ user.id }} </p>
+    {% endif %}
+{% endblock %}

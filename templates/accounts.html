@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Cuenas actuales</h1>
+    <a href="{% url 'add_account' %}">Añadir cuenta</a>
+
+    {#    {% if accounts %}#}
+    {#        <h3>Hay cuentas</h3>#}
+    {#        <ul>#}
+    {#            {% for account in accounts %}#}
+    {#                <li>{{ account }}</li>#}
+    {##}
+    {#            {% endfor %}#}
+    {#        </ul>#}
+    {#    {% else %}#}
+    {#        <h3>No hay cuentas registradas</h3>#}
+    {#        <a href="">Ingresa una nueva cuenta</a>#}
+    {#    {% endif %}#}
+{% endblock %}
