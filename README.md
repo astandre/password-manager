@@ -44,7 +44,7 @@ En el archivo .env configurar las variables
 
 ruta : 
 ```
-/api/generate/password
+/accounts/api/generate/password
 ```
 
 Requerimientos:
@@ -58,7 +58,7 @@ Requerimientos:
 
 ruta : 
 ```
-/api/validate/password
+/accounts/api/validate/password
 ```
 
 Requerimientos:
@@ -73,13 +73,14 @@ Requerimientos:
 
 ruta : 
 ```
-/api/accounts/list
+accounts/api/list
 ```
 
 Requerimientos:
 ```
 {
-	"key":"OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug="
+	"key":"OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug=",
+	"user_id":"2"
 }
 ```
 
@@ -88,14 +89,50 @@ Requerimientos:
 
 ruta : 
 ```
-http://127.0.0.1:8000/api/accounts/show
+/accounts/api/show
 ```
 
 Requerimientos:
 ```
 {
 	"key":"OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug=",
-	"id":"1"
+	"account_id":"1",
+	"user_id":"2"
 }
 ```
 
+### Añadir Cuenta  [POST]
+
+ruta : 
+```
+/accounts/api/add
+```
+
+Requerimientos:
+```
+{
+	"key":"OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug=",
+	"user_id":"2",
+	"site":"www.youtu.com",
+	"email":"stalinfernandocarrioncarchi@gmail.com",
+	"password":"asdasddas123434"
+	
+}
+```
+
+o 
+```
+{
+	"key":"OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug=",
+	"user_id":"2",
+	"site":"www.youtu.com",
+	"user_name":"stalinfernando",
+	"password":"asdasddas123434"
+	
+}
+```
+
+## TODO
+
+1. listar cuentas en la pagina de *accounts.html* llamndo al api (accounts/api/list)
+2. crear formulario *add_accounts.html* para añadir una cuenta que me permita sugerir contraseñas y validar la contraseña, los datos deberan ser enviados al api (accounts/api/add)
