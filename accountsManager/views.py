@@ -134,8 +134,12 @@ def add_account(request):
 
 @api_view(['POST'])
 def add_account_api(request):
+    print('llegando')
+    print(request.method)
     if request.method == 'POST':
+        print(request.data)
         serializer = NewAccountValidator(data=request.data)
+        print(serializer)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse({"status": "Data saved correctly"}, status=status.HTTP_200_OK)

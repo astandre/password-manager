@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Django Login Mega-Tutorial</h1>
+    <h1>Bienvenido</h1>
+    <p>Ver mis <a href="{% url 'accounts' %}"> cuentas</a></p>
+    <p>Agregar <a href="{% url 'add_account' %}"> cuenta</a></p>
 
 {% endblock %}
