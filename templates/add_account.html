@@ -48,7 +48,8 @@
                 $.ajax({
                     url: post_url,
                     type: request_method,
-                    data: form_data, beforeSend: function (xhr, settings) {
+                    data: form_data,
+                    beforeSend: function (xhr, settings) {
                         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
                             xhr.setRequestHeader("X-CSRFToken", csrftoken);
                         }
@@ -61,22 +62,23 @@
             $('#testPas').click(function () {
                 var textPas = $('#pass_in').val()
                 $('#dom-pass').empty()
-                if(textPas != ''){
-                    data ={
+                if (textPas != '') {
+                    data = {
                         "key": "OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug=",
                         "password": textPas
                     }
                     $.ajax({
                         url: "{% url 'validate_password' %}",
                         type: "POST",
-                        data: data, beforeSend: function (xhr, settings) {
+                        data: data,
+                        beforeSend: function (xhr, settings) {
                             if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
                                 xhr.setRequestHeader("X-CSRFToken", csrftoken);
                             }
                         },
                     }).done(function (response) { //
                         var statusRes = response.status
-                        if (statusRes == 'not secure'){
+                        if (statusRes == 'not secure') {
                             $('#dom-pass').append('<div class="alert alert-danger">\n' +
                                 '                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
                                 '                      <i class="material-icons">close</i>\n' +
@@ -85,7 +87,7 @@
                                 '                      <b> Cuidado - </b> Contraseña no segura</span>\n' +
                                 '                  </div>')
                         }
-                        if (statusRes == 'ok'){
+                        if (statusRes == 'ok') {
                             $('#dom-pass').append('<div class="alert alert-success">\n' +
                                 '                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
                                 '                      <i class="material-icons">close</i>\n' +
@@ -95,37 +97,49 @@
                                 '                  </div>')
                         }
                     });
-                }else{
+                } else {
                     $('#dom-pass').append('<div class="alert alert-info">\n' +
-                                '                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
-                                '                      <i class="material-icons">close</i>\n' +
-                                '                    </button>\n' +
-                                '                    <span>\n' +
-                                '                      <b> Atencion - </b>Ingrese una contraseña</span>\n' +
-                                '                  </div>')
+                        '                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                        '                      <i class="material-icons">close</i>\n' +
+                        '                    </button>\n' +
+                        '                    <span>\n' +
+                        '                      <b> Atencion - </b>Ingrese una contraseña</span>\n' +
+                        '                  </div>')
                 }
             })
 
             $('#genPas').click(function () {
-                dataP ={
+                var dataP = {
                     "key": "OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug="
                 }
+                var data = {
+                    "key": "OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug="
+                };
                 $.ajax({
                     url: "{% url 'generate_password' %}",
-                    data: {
-                        "key": "OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug="
+                    type: "POST",
+                    {#dataType: "json",#}
+                    {#contentType: 'application/json',#}
+                    {#processData: false,#}
+                    data: dataP,
+                    success: function (response) {
+                        console.log(response)
                     },
-                    cache: false,
-                    type: "GET",
-                    success: function(response) {
-                console.log(response)
+                    error: function (xhr) {
+                        console.log("errror")
+                        console.log(xhr)
                     },
-                    error: function(xhr) {
-                console.log("errror")
-                    }
+                    beforeSend: function (xhr, settings) {
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
                 });
                 /*$.ajax({
-                    url: "{% url 'generate_password' %}",
+
+
+
+                {#url: "                {% url 'generate_password' %}",#}
                     type: "GET",
                     data: data, beforeSend: function (xhr, settings) {
                         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
