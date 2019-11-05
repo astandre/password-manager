@@ -26,9 +26,9 @@ class SignUp(generic.CreateView):
 
 
 # Create your views here.
-@api_view(['GET'])
+@api_view(['POST'])
 def generate_password(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         serializer = KeyValidator(data=request.data)
         if serializer.is_valid():
             alphabet = string.ascii_letters + string.digits + "@#$%^&+="
