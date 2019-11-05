@@ -135,7 +135,6 @@ def add_account(request):
 @api_view(['POST'])
 def add_account_api(request):
     print('llegando')
-    print(request.method)
     if request.method == 'POST':
         print(request.data)
         serializer = NewAccountValidator(data=request.data)

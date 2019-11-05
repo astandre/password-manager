@@ -5,8 +5,8 @@
         <form action="" method="POST" id="my_form">
             {% csrf_token %}
             {{ form }}
-            <input type="text" value="{{ user.id }}" hidden>
-            <input type="text" value="OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug=" hidden>
+            <input type="text" value="{{ user.id }}" id="id_user_in" hidden>
+            <input type="text" value="OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug=" id="key_in" hidden>
             <div class="form-group">
                 <label for="site_in">Site</label>
                 <input type="text" class="form-control" id="site_in" aria-describedby="emailHelp"
@@ -19,25 +19,28 @@
             </div>
             <div class="form-group">
                 <label for="pass_in">Password</label>
+                <div id="cnts-btns">
+                    <span class="btns-pass" id="genPas">Generate</span><span class="btns-pass" id="testPas">Test</span>
+                </div>
                 <input type="password" class="form-control" id="pass_in" placeholder="Enter Password">
+                <div id="dom-pass"></div>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     {% endif %}
     <script content="text/javascript">
         $(document).ready(function () {
-            console.log("ready!");
             $("#my_form").submit(function (event) {
                 event.preventDefault(); //prevent default action
                 var post_url = '{% url 'add_account_api' %}'
                 var request_method = $(this).attr("method"); //get form GET/POST method
                 console.log(request_method);
                 var form_data = {
-                    "key": "OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug=",
-                    "user_id": "1",
-                    "site": "www.youtu.com",
-                    "email": "stalinfernandocarrioncarchi@gmail.com",
-                    "password": "asdasddas123434"
+                    "key": $('#key_in').val(),
+                    "user_id": $('#id_user_in').val(),
+                    "site": $('#site_in').val(),
+                    "email": $('#email_in').val(),
+                    "password": $('#pass_in').val()
                 }
                 console.log(post_url)
                 console.log(request_method)
@@ -51,9 +54,90 @@
                         }
                     },
                 }).done(function (response) { //
-                    console.log('ok end save')
+                    console.log('ok')
+                    window.location.replace("{% url 'accounts' %}")
                 });
             });
+            $('#testPas').click(function () {
+                var textPas = $('#pass_in').val()
+                $('#dom-pass').empty()
+                if(textPas != ''){
+                    data ={
+                        "key": "OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug=",
+                        "password": textPas
+                    }
+                    $.ajax({
+                        url: "{% url 'validate_password' %}",
+                        type: "POST",
+                        data: data, beforeSend: function (xhr, settings) {
+                            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                            }
+                        },
+                    }).done(function (response) { //
+                        var statusRes = response.status
+                        if (statusRes == 'not secure'){
+                            $('#dom-pass').append('<div class="alert alert-danger">\n' +
+                                '                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                                '                      <i class="material-icons">close</i>\n' +
+                                '                    </button>\n' +
+                                '                    <span>\n' +
+                                '                      <b> Cuidado - </b> Contraseña no segura</span>\n' +
+                                '                  </div>')
+                        }
+                        if (statusRes == 'ok'){
+                            $('#dom-pass').append('<div class="alert alert-success">\n' +
+                                '                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                                '                      <i class="material-icons">close</i>\n' +
+                                '                    </button>\n' +
+                                '                    <span>\n' +
+                                '                      <b> Genial - </b> Contraseña segura</span>\n' +
+                                '                  </div>')
+                        }
+                    });
+                }else{
+                    $('#dom-pass').append('<div class="alert alert-info">\n' +
+                                '                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                                '                      <i class="material-icons">close</i>\n' +
+                                '                    </button>\n' +
+                                '                    <span>\n' +
+                                '                      <b> Atencion - </b>Ingrese una contraseña</span>\n' +
+                                '                  </div>')
+                }
+            })
+
+            $('#genPas').click(function () {
+                dataP ={
+                    "key": "OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug="
+                }
+                $.ajax({
+                    url: "{% url 'generate_password' %}",
+                    data: {
+                        "key": "OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug="
+                    },
+                    cache: false,
+                    type: "GET",
+                    success: function(response) {
+                console.log(response)
+                    },
+                    error: function(xhr) {
+                console.log("errror")
+                    }
+                });
+                /*$.ajax({
+                    url: "{% url 'generate_password' %}",
+                    type: "GET",
+                    data: data, beforeSend: function (xhr, settings) {
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                }).done(function (response) { //
+                    console.log(response)
+
+                });*/
+
+            })
         })
     </script>
 {% endblock %}

@@ -1,0 +1,37 @@
+/*Estilos en add count html*/
+#my_form{
+    width: 60%;
+    margin: auto;
+}
+#my_form label{
+    color: #701c7e;
+}
+#cnts-btns, #dom-pass{
+    width: 100%;
+    margin: 1% 0;
+}
+.btns-pass{
+    margin: 2em 1%;
+    padding: 2px 10px;
+    border-radius: 15px;
+    border: 1px solid transparent;
+}
+
+#testPas{
+    border: 1px solid #9966ff;
+    color: #9966ff;
+}
+#genPas{
+    border: 1px solid #9966ff;
+    background-color: #9966ff;
+    color: #fff;
+}
+#testPas:hover{
+    color: #000;
+    cursor: pointer;
+}
+
+#genPas:hover{
+    color: #000;
+    cursor: pointer;
+}

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <link href="{% static 'css/material-dashboard.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/own.css' %}" rel="stylesheet"/>
     <script src="{% static 'js/jquery.min.js' %}"></script>
 </head>
 <body>
@@ -90,7 +91,7 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12" id="content_main">
                         {% block content %}
 
                         {% endblock %}
