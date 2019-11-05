@@ -35,3 +35,29 @@
     color: #000;
     cursor: pointer;
 }
+
+/*Forms*/
+.styles_form {
+  width: 30%;
+  padding: 15px 10px;
+    border-radius: 10px;
+    border: 1px solid #701c7e;
+}
+.styles_form label{
+    color: #701c7e;
+}
+.styles_form label, .styles_form input[type=text] {
+  display: block;
+}
+.styles_form input[type=text],.styles_form input[type=password],.styles_form input[type=email] {
+  width: 100%;
+  padding: 5px;
+  padding-left: 15px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+.styles_form .box_btn {
+  width: 100%;
+  margin-top: 2%;
+  text-align: center;
+}

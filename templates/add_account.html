@@ -10,19 +10,20 @@
             <div class="form-group">
                 <label for="site_in">Site</label>
                 <input type="text" class="form-control" id="site_in" aria-describedby="emailHelp"
-                       placeholder="Enter Site Name">
+                       placeholder="Enter Site Name" required>
             </div>
             <div class="form-group">
-                <label for="email_in">Email address</label>
+                <label for="email_in">Email address or Username</label>
                 <input type="email" class="form-control" id="email_in" aria-describedby="emailHelp"
-                       placeholder="Enter email">
+                       placeholder="Enter email or username" required>
             </div>
             <div class="form-group">
                 <label for="pass_in">Password</label>
                 <div id="cnts-btns">
                     <span class="btns-pass" id="genPas">Generate</span><span class="btns-pass" id="testPas">Test</span>
                 </div>
-                <input type="password" class="form-control" id="pass_in" placeholder="Enter Password">
+                <input type="password" class="form-control" id="pass_in" placeholder="Enter Password" required>
+                <input type="checkbox" onclick="myFunction()">Show Password
                 <div id="dom-pass"></div>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -42,9 +43,6 @@
                     "email": $('#email_in').val(),
                     "password": $('#pass_in').val()
                 }
-                console.log(post_url)
-                console.log(request_method)
-                console.log(form_data)
                 $.ajax({
                     url: post_url,
                     type: request_method,
@@ -57,8 +55,19 @@
                 }).done(function (response) { //
                     console.log('ok')
                     window.location.replace("{% url 'accounts' %}")
+                }).fail(function () {
+                    $('#dom-pass').empty()
+                    $('#dom-pass').append('<div class="alert alert-danger">\n' +
+                                '                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                                '                      <i class="material-icons">close</i>\n' +
+                                '                    </button>\n' +
+                                '                    <span>\n' +
+                                '                      <b> Error - </b> Contraseña no segura</span>\n' +
+                                '                  </div>')
                 });
             });
+
+
             $('#testPas').click(function () {
                 var textPas = $('#pass_in').val()
                 $('#dom-pass').empty()
@@ -112,9 +121,6 @@
                 var dataP = {
                     "key": "OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug="
                 }
-                var data = {
-                    "key": "OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug="
-                };
                 $.ajax({
                     url: "{% url 'generate_password' %}",
                     type: "POST",
@@ -123,7 +129,7 @@
                     {#processData: false,#}
                     data: dataP,
                     success: function (response) {
-                        console.log(response)
+                        $('#pass_in').val(response.password)
                     },
                     error: function (xhr) {
                         console.log("errror")
@@ -135,23 +141,16 @@
                         }
                     },
                 });
-                /*$.ajax({
-
-
-
-                {#url: "                {% url 'generate_password' %}",#}
-                    type: "GET",
-                    data: data, beforeSend: function (xhr, settings) {
-                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                        }
-                    },
-                }).done(function (response) { //
-                    console.log(response)
-
-                });*/
-
             })
+
         })
+        function myFunction() {
+              var x = document.getElementById("pass_in");
+              if (x.type === "password") {
+                x.type = "text";
+              } else {
+                x.type = "password";
+              }
+            }
     </script>
 {% endblock %}

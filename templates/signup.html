@@ -5,9 +5,9 @@
 
 {% block content %}
     <h2>Sign up</h2>
-    <form method="post">
+    <form method="post"  class="styles_form">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Sign up</button>
+        <button type="submit" class="btn btn-primary">Sign up</button>
     </form>
 {% endblock %}

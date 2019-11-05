@@ -2,10 +2,10 @@
 {% block title %}Login{% endblock %}
 {% block content %}
     <h2>Login</h2>
-    <form method="post">
+    <form method="post" class="styles_form">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Login</button>
+        <button type="submit" class="btn btn-primary">Login</button>
     </form>
 {% endblock %}
 
