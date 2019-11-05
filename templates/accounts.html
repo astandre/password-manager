@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>My Accounts</h1>
-    <a href="{% url 'add_account' %}">New</a>
     {% if user.is_authenticated %}
-        <p>ID: {{ user.id }} </p>
+        <p></p>
     {% endif %}
         {% if accounts %}
                 <div class="row">
@@ -38,7 +37,7 @@
                                       {% for account in accounts %}
                                           <tr>
                                             <td>{{  account.site }} </td>
-                                              <td> <i class="material-icons">visibility</i></td>
+                                              <td> <i class="material-icons see" id="{{ account.id_account }}">visibility</i></td>
                                           </tr>
                                         {% endfor %}
                                     </tbody>
@@ -52,4 +51,52 @@
         {% else %}
             <h3>No hay cuentas registradas</h3>
         {% endif %}
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Account Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+<script content="text/javascript">
+        $(document).ready(function () {
+            $(".see").click(function () {
+                var post_url = '{% url 'show_password' %}'
+                var request_method = "POST"
+                var dataP = {
+                    "key": "OQmYzmageRRcWosZ11TGPoXqZ4JhcNWpzh8NUCeMlug=",
+                    "account_id": $(this).attr('id'),
+                    "user_id": {{ user.id }},
+
+                }
+                $.ajax({
+                    url: post_url,
+                    type: request_method,
+                    data: dataP, beforeSend: function (xhr, settings) {
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                }).done(function (response) { //
+                    $('.modal-body').empty()
+                    $('.modal-body').append('<p><strong>Site: </strong>'+response.site+'</p>' +
+                        '<p><strong>Username: </strong>'+response.email+'</p>' +
+                        '<p><strong>Password: </strong>'+response.password+'</p>')
+                    $('#exampleModalCenter').modal('show')
+
+                });
+            });
+        })
+    </script>
 {% endblock %}

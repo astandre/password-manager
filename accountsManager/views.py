@@ -90,7 +90,7 @@ def show_password(request):
         if serializer.is_valid():
             try:
                 user = CustomUser.objects.get(id=serializer.validated_data["user_id"])
-                account = Account.objects.values("password", "site") \
+                account = Account.objects.values("password", "site","email") \
                     .get(id_account=serializer.validated_data["account_id"], user=user)
                 subject = 'PassWord Manager alert'
                 message = f'Se he desbloqueado la informacion de tu cuenta de {account["site"]}, en caso de no haber realizado esta accion se recomienda cambiar de contraseña'

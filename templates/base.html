@@ -27,21 +27,15 @@
         <div class="sidebar-wrapper">
             <ul class="nav">
                 <li class="nav-item active  ">
-                    <a class="nav-link" href="/">
+                    <a class="nav-link" href="{% url 'accounts' %}">
                         <i class="material-icons">dashboard</i>
                         <p>Home</p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="#">
-                        <i class="material-icons">person</i>
-                        <p>Profile</p>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="{% url 'accounts' %}">
+                    <a class="nav-link" href="{% url 'add_account' %}">
                         <i class="material-icons">content_paste</i>
-                        <p>Accounts</p>
+                        <p>New Account</p>
                     </a>
                 </li>
             </ul>
@@ -53,7 +47,7 @@
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
             <div class="container-fluid">
                 <div class="navbar-wrapper">
-                    <a class="navbar-brand" href="#pablo">Home</a>
+                    <!--a class="navbar-brand" href="#pablo">Home</a-->
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
